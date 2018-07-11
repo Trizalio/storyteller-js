@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Cthulhu</title>
+    <style type="text/css">
+    	circle:hover    {
+    		/*fill: blue;*/
+    		filter:url(#blurred_node);
+    		/*filter:unset;*/
+    	}
+/*    	circle   {
+    		filter:url(#targeted_node);
+    	}*/
+/*    	circle {
+		    -webkit-filter: drop-shadow( -5px -5px 5px #000 ); 
+		            filter: drop-shadow( -5px -5px 5px #000 );
+		}*/
+		.md-icon {
+		    font-family: "Material Icons";
+		    text-rendering: optimizeLegibility;
+		    font-feature-settings: 'liga' 1;
+		    font-style: normal;
+		    text-transform: none;
+		    line-height: 1;
+		    /*font-size: 24px;*/
+		    overflow: hidden;
+		    -webkit-font-smoothing: antialiased;
+		    cursor: pointer;
+	        float: right;
+		}
+
+    </style>
+  </head>
+  <body style="background-color: #3366CC;"><!-- 3366CC -->
+  	<div class="container-fluid">
+  		<div class="row">
+    		<div class="col-md-3 admin-invisible">
+				<div class="card text-center" style="width: 100%; height: 100%; ">
+				  	<svg id="svg" style="width: 100%; height: 100%;">
+						<defs>
+							<filter id="blurred_node" x="-100%" y="-100%" height="300%" width="300%">
+								<feGaussianBlur stdDeviation="5"/>
+								<feComponentTransfer>
+									<feFuncA type="linear" slope="2.5"/> <!-- slope is the opacity of the shadow -->
+								</feComponentTransfer>
+								<feMerge> 
+									<feMergeNode/> <!-- this contains the offset blurred image -->
+									<feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+								</feMerge>
+							</filter>
+<!-- 							<filter id="targeted_node" x="-100%" y="-100%" height="300%" width="300%">
+								<feGaussianBlur stdDeviation="0"/>
+								<feComponentTransfer>
+									<feFuncA type="linear" slope="2.5"/> 
+								</feComponentTransfer>
+								<feMerge> 
+									<feMergeNode/> 
+									<feMergeNode in="SourceGraphic"/> 
+								</feMerge>
+							</filter> -->
+						</defs>
+					</svg>
+<!-- 					<div class="card-img-overlay">
+
+					</div> -->
+
+				    <div class="card-footer">
+						<!-- <div class="btn-group" role="group"> -->
+						  	<button class="btn btn-primary" onclick="deleteNode();syncGraph();">Удалить сцену</button>
+						  	<button class="btn btn-primary" onclick="addNewNode();syncGraph();">Новая сцена</button>
+						  	<button class="btn btn-primary" onclick="start_add_new_action(get_current_node());">Новое действие</button>
+						  	<!-- <button class="btn btn-primary" onclick="addAction({SOURCE:node_opening, TITLE:'test', DESTINATION:node_test});syncGraph();">Новое действие</button> -->
+					  	<!-- </div> -->
+				    </div>
+				</div>
+		  	</div>
+		  	<div class="col-md-6">
+				<div class="card" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 50px  rgba(255, 255, 255, 0.5);">
+					<img class="card-img-top" id="background">
+					<div id="scene"></div>
+					<div class="card-body">
+	    				<h5 id="title" class="card-title">Card title</h5>
+						<p class="card-text" id="main"></p>
+						<!-- <i class="md-icon admin-hidden" onclick="alert(1);">create</i> -->
+					</div>
+
+				    <div class="card-footer">
+						<div id="actions" class="btn-group-vertical" style="display: block"></div>
+				    </div>
+				</div>
+			</div>
+		  	<div class="col-md-3">
+				<div class="card text-center admin-invisible" style="width: 100%; height: 100%;">
+
+					<div class="card-header">
+    					<ul class="nav nav-tabs card-header-tabs nav-fill">
+						<!-- <ul class="nav nav-pills card-header-pills nav-fill"> -->
+							<!-- <li class="nav-item"> -->
+								<a class="nav-item nav-link disabled" href="#">Графика</a>
+							<!-- </li> -->
+							<!-- <li class="nav-item"> -->
+								<a class="nav-item nav-link active" style="background-color: rgba(255, 255, 255, 0.5);" href="#">Действия</a>
+							<!-- </li> -->
+							<!-- <li class="nav-item"> -->
+								<a class="nav-item nav-link" href="#">Условия</a>
+							<!-- </li> -->
+						</ul>
+					</div>
+					<div class="card-body">
+					  	<button class="btn btn-primary" onclick="scanDepth(get_current_node());syncGraph();">Добавить действие</button>
+					  	<button class="btn btn-primary" onclick="set_is_admin(false);">Скрыть</button>
+					</div>
+
+<!-- 					<div class="card-img-overlay">
+
+					</div> -->
+				    <div class="card-footer">
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+  <script src="js/image.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/gui.js"></script>
+
+
+</html>
+
